@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f6f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0e0f11" media="(prefers-color-scheme: dark)">
+  <title>Payments — Training Center</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%231d3a6e'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11.5' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Training center</p>
+      <h1>Payments</h1>
+
+      <div class="month-switch">
+        <button type="button" class="round-btn" id="prev-month" aria-label="Previous month">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+        </button>
+        <button type="button" class="month-label" id="month-label" aria-label="Choose month">
+          <span id="month-text"></span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg>
+        </button>
+        <input type="month" id="month" class="visually-hidden" tabindex="-1" aria-hidden="true">
+        <button type="button" class="round-btn" id="next-month" aria-label="Next month">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-label">Total owed</span>
+          <strong class="stat-value" id="stat-total">—</strong>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Debtors</span>
+          <strong class="stat-value" id="stat-count">—</strong>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="list-head">
+      <h2>Debtors</h2>
+      <label class="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input type="search" id="search" placeholder="Search name, group, phone" aria-label="Search debtors">
+      </label>
+    </div>
+    <ul class="debtors" id="debtors"></ul>
+  </main>
+
+  <button type="button" class="fab" id="open-sheet">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+    Add payment
+  </button>
+
+  <dialog class="sheet" id="sheet" aria-labelledby="sheet-title">
+    <form id="pay-form" novalidate>
+      <div class="sheet-handle" aria-hidden="true"></div>
+      <div class="sheet-head">
+        <h2 id="sheet-title">New payment</h2>
+        <button type="button" class="round-btn soft" data-close aria-label="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+
+      <label class="field">
+        <span>Student</span>
+        <select name="studentId" required></select>
+      </label>
+      <p class="hint" id="debt-hint"></p>
+
+      <label class="field">
+        <span>Amount</span>
+        <input name="amount" type="text" inputmode="numeric" autocomplete="off" placeholder="0" required>
+      </label>
+      <div class="chips" id="chips"></div>
+
+      <label class="field">
+        <span>Date</span>
+        <input name="date" type="date" required>
+      </label>
+
+      <p class="form-error" id="form-error" role="alert"></p>
+
+      <button type="submit" class="btn-primary">
+        <span class="btn-text">Save payment</span>
+        <span class="spinner" aria-hidden="true"></span>
+      </button>
+
+      <details class="history" id="history" hidden>
+        <summary>
+          Payment history
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg>
+        </summary>
+        <ul id="history-list"></ul>
+      </details>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
